@@ -1,13 +1,13 @@
 package com.example.canals.service;
 
-import com.example.canals.repository.ItemRepository;
+import com.example.canals.repository.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ItemService {
+public class AddressService {
 
-    private ItemRepository itemRepository;
+    private AddressRepository addressRepository;
 
 }

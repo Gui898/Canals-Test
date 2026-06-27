@@ -12,14 +12,50 @@ import java.util.List;
 @Table(name = "orders")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class Order {
 
     @Id
+    @Column(name = "id_order")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idOrder;
+    private Long idOrder;
 
+    @Setter
+    @Column(name = "customer")
     private String customer;
+
+    @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status")
+    private OrderStatus status = OrderStatus.PENDING_PAYMENT;
+
+    @ManyToOne
+    @JoinColumn(name = "id_warehouse")
     private Warehouse warehouse;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Address address;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderProd> productList;
+
+    public Order(String customer, Warehouse warehouse, Address address, List<OrderProd> productList) {
+        this.customer = customer;
+        this.warehouse = warehouse;
+        this.address = address;
+        this.productList = productList;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+
+        if(address != null){
+            address.setOrder(this);
+        }
+    }
+
+    public void setProductList(List<OrderProd> list){
+        this.productList = list;
+
+        list.forEach(orderProd -> orderProd.setOrder(this));
+    }
 }

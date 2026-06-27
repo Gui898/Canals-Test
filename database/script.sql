@@ -17,6 +17,7 @@ CREATE TABLE orders(
     id_warehouse BIGINT,
 
     customer VARCHAR(255) NOT NULL,
+    payment_status VARCHAR(50),
 
     PRIMARY KEY(id_order),
     FOREIGN KEY(id_warehouse) REFERENCES warehouse(id_warehouse)
@@ -43,7 +44,8 @@ CREATE TABLE product(
     name_product VARCHAR(255) NOT NULL,
     value_product DECIMAL(15,2) NOT NULL,
 
-    PRIMARY KEY(id_product)
+    PRIMARY KEY(id_product),
+    CHECK(value_product >= 0.0)
 );
 
 CREATE TABLE order_prod(
