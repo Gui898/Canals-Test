@@ -2,7 +2,9 @@ package com.example.canals.service;
 
 import com.example.canals.models.Address;
 import com.example.canals.models.OrderProd;
+import com.example.canals.models.ProdWare;
 import com.example.canals.models.Warehouse;
+import com.example.canals.repository.ProdWareRepository;
 import com.example.canals.repository.WarehouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,17 +15,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WarehouseService {
 
-    private WarehouseRepository warehouseRepository;
+    private final WarehouseRepository warehouseRepository;
+    private final ProdWareRepository prodWareRepository;
 
-    public Warehouse getBestWarehouse(List<OrderProd> listOrderProd){
-        /*In process*/
+    public Warehouse getBestWarehouse(List<OrderProd> listOrderProd, Address address){
+
+
     }
 
     private double[] getAddressLatLong(Address address){
-        if(address.getCountry().equals("Japan")){
-            return new double[] {36.2048, 138.2529};
-        } else if (address.getCountry().equals("United States")) {
-            return new double[] {37.09024, -95.712891};
+        if(address.getCity().equals("Tokyo")){
+            return new double[] {35.6762, 139.6503};
+        } else if (address.getCity().equals("New York")) {
+            return new double[] {40.7128, -74.0060};
         }
 
         return new double[2];
