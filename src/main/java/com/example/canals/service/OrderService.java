@@ -2,6 +2,8 @@ package com.example.canals.service;
 
 import com.example.canals.DTO.OrderProdDTO;
 import com.example.canals.DTO.OrderRequest;
+import com.example.canals.DTO.OrderResponse;
+import com.example.canals.DTO.WarehouseDTO;
 import com.example.canals.exceptions.PaymentFailedException;
 import com.example.canals.exceptions.ProductNotFoundException;
 import com.example.canals.exceptions.ServerException;
@@ -25,10 +27,10 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final PaymentService paymentService;
     private final ProductService productService;
-    private WarehouseService warehouseService;
+    private final WarehouseService warehouseService;
 
     @Transactional
-    public Order createOrder(OrderRequest request){
+    public OrderResponse createOrder(OrderRequest request){
 
         try{
             List<OrderProd> listProducts = new ArrayList<>();
@@ -72,7 +74,20 @@ public class OrderService {
             order.setAddress(address);
             order.setProductList(listProducts);
 
-            return order;
+            Warehouse warehouse = warehouseService.findBestWarehouse(listProducts, address);
+
+            order.setWarehouse(warehouse);
+
+            WarehouseDTO warehouseDTO = new WarehouseDTO(warehouse.getIdWarehouse(), warehouse.getNameWarehouse());
+
+            orderRepository.save(order);
+
+            return new OrderResponse(
+                    order.getIdOrder(),
+                    order.getCustomer(),
+                    order.getStatus(),
+                    request.shippingAddress(),
+                    warehouseDTO);
         }catch (NoSuchElementException e){
             throw new ProductNotFoundException("Product not found!");
         }

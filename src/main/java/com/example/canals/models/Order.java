@@ -12,6 +12,8 @@ import java.util.List;
 @Table(name = "orders")
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Getter
 public class Order {
 
     @Id
@@ -19,11 +21,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOrder;
 
-    @Setter
     @Column(name = "customer")
     private String customer;
 
-    @Setter
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status")
     private OrderStatus status = OrderStatus.PENDING_PAYMENT;
@@ -57,5 +57,13 @@ public class Order {
         this.productList = list;
 
         list.forEach(orderProd -> orderProd.setOrder(this));
+    }
+
+    public void setWarehouse(Warehouse warehouse){
+        this.warehouse = warehouse;
+
+        if (warehouse != null) {
+            warehouse.addOrder(this);
+        }
     }
 }

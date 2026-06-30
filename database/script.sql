@@ -75,3 +75,24 @@ CREATE TABLE warehouse_prod(
 
     UNIQUE(id_product, id_warehouse)
 );
+
+INSERT INTO product VALUES
+	(NULL, "Keyboard", 20.00),
+    (NULL, "Mouse", 10.00),
+    (NULL, "Headphone", 25.00);
+
+INSERT INTO warehouse VALUES
+	(NULL, "Paris Warehouse", 48.8566, 2.3522),
+	(NULL, "Sydney Warehouse", -33.8688, 151.2093),
+	(NULL, "Cape Town Warehouse", -33.9249, 18.4241);
+
+INSERT INTO warehouse_prod VALUES
+	(NULL, 1, 1, 5),
+	(NULL, 1, 2, 10),
+	(NULL, 1, 3, 0),
+    (NULL, 2, 1, 13),
+	(NULL, 2, 2, 9),
+	(NULL, 2, 3, 20),
+    (NULL, 3, 1, 0),
+	(NULL, 3, 2, 7),
+	(NULL, 3, 3, 8);

@@ -10,6 +10,5 @@ import java.util.List;
 @Repository
 public interface ProdWareRepository extends JpaRepository<ProdWare, Long> {
 
-    @Query("SELECT * FROM warehouse_prod WHERE id_warehouse = ?1")
-    List<ProdWare> findByWarehouseId(Long id);
+    List<ProdWare> findByWarehouseIdWarehouse(Long idWarehouse);
 }

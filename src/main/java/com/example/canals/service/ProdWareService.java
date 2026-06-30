@@ -14,7 +14,7 @@ public class ProdWareService {
     private final ProdWareRepository prodWareRepository;
 
     public List<ProdWare> findProdWareById(Long idWarehouse){
-        return prodWareRepository.findByWarehouseId(idWarehouse);
+        return prodWareRepository.findByWarehouseIdWarehouse(idWarehouse);
     }
 
 }

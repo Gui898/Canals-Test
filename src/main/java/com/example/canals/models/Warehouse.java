@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,5 +34,15 @@ public class Warehouse {
 
     @OneToMany(mappedBy = "warehouse")
     private List<ProdWare> prodWareList;
+
+    public void addOrder(Order order) {
+        if (ordersList == null) {
+            ordersList = new ArrayList<>();
+        }
+
+        if (!ordersList.contains(order)) {
+            ordersList.add(order);
+        }
+    }
 
 }
